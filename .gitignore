@@ -1,0 +1,16 @@
+# Ambiente Virtual (Dependências locais)
+.venv/
+venv/
+ENV/
+
+# Caches do Python (Arquivos compilados em tempo de execução)
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Arquivos temporários de editores (VS Code)
+.vscode/
+
+# Arquivos temporários de documentos abertos (como o seu ODT)
+.~lock.*
