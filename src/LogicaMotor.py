@@ -64,7 +64,6 @@ class LogicaMotor:
         # Conta a frequência de cada opção usando Pandas
         contagem = df_votos['opcoes_idOpcoes'].value_counts()
         
-        # Verifica se há empate na primeira colocação
         # Verifica se há empate na primeira colocação 
         if len(contagem) > 1 and contagem.iloc[0] == contagem.iloc[1]:
             return "Empate. Será necessário maior discussão do grupo."

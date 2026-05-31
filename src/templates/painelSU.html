@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Painel do Superusuário</title>
+
+  <link rel="stylesheet" href="/css/tokens/tokens.css">
+  <link rel="stylesheet" href="/css/painelSU.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+</head>
+
+<body>
+
+  <div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="sidebar-top">
+
+        <div class="logo">
+          SISTEMA DE VOTAÇÃO <br>
+          E DECISÃO EM GRUPO
+        </div>
+
+        <nav class="menu">
+
+          <a href="#" class="menu-item">
+            <span>🏠</span>
+            <span>Votações Abertas</span>
+          </a>
+
+          <a href="#" class="menu-item">
+            <span>➕</span>
+            <span>Criar Votação</span>
+          </a>
+
+          <a href="#" class="menu-item">
+            <span>📊</span>
+            <span>Resultados</span>
+          </a>
+
+          <a href="#" class="menu-item">
+            <span>🕘</span>
+            <span>Histórico</span>
+          </a>
+
+          <a href="#" class="menu-item active">
+            <span>👤</span>
+            <span>Superusuário</span>
+          </a>
+
+        </nav>
+
+      </div>
+
+      <div class="sidebar-bottom">
+
+        <div class="info-card">
+          <h4>Dicas</h4>
+
+          <p>
+            Como superusuário, você pode criar votações,
+            encerrar votações em andamento e visualizar
+            resultados e relatórios.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <h4>Informações</h4>
+
+          <p>
+            Os resultados só podem ser acessados por
+            superusuários garantindo a imparcialidade
+            do processo.
+          </p>
+        </div>
+
+      </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- HEADER -->
+      <header class="header">
+
+        <div class="user-box">
+          <div class="avatar">S</div>
+          <span>Superusuário</span>
+        </div>
+
+      </header>
+
+      <!-- CONTENT -->
+      <section class="content">
+
+        <!-- TITLE -->
+        <div class="page-title">
+          <h1>Painel do Superusuário</h1>
+
+          <p>
+            Gerencie votações, resultados e acompanhe o andamento.
+          </p>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="cards-grid">
+
+          <div class="action-card">
+            <div class="card-icon">➕</div>
+
+            <h3>Criar votação</h3>
+
+            <p>
+              Crie uma nova votação para o grupo.
+            </p>
+
+            <button class="btn-outline">
+              Nova votação
+            </button>
+          </div>
+
+          <div class="action-card">
+            <div class="card-icon">🚩</div>
+
+            <h3>Encerrar votação</h3>
+
+            <p>
+              Encerre uma votação antes do prazo,
+              se necessário.
+            </p>
+
+            <button class="btn-outline">
+              Encerrar votação
+            </button>
+          </div>
+
+          <div class="action-card">
+            <div class="card-icon">📊</div>
+
+            <h3>Visualizar resultados</h3>
+
+            <p>
+              Acesse os resultados,
+              gráficos e indicadores.
+            </p>
+
+            <button class="btn-outline">
+              Ver resultados
+            </button>
+          </div>
+
+          <div class="action-card">
+            <div class="card-icon">🔍</div>
+
+            <h3>Pesquisar votação</h3>
+
+            <p>
+              Pesquise votações por título,
+              status ou data.
+            </p>
+
+            <button class="btn-outline">
+              Pesquisar
+            </button>
+          </div>
+
+        </div>
+
+        <!-- FILTER -->
+        <div class="panel">
+
+          <div class="panel-title">
+            <h2>Pesquisar votações</h2>
+
+            <p>
+              Encontre votações pelo título, status ou período.
+            </p>
+          </div>
+
+          <div class="filters">
+
+            <div class="search-input">
+              <input
+                type="text"
+                placeholder="Buscar por título da votação..."
+              />
+            </div>
+
+            <select>
+              <option>Todos</option>
+            </select>
+
+            <select>
+              <option>Todos os períodos</option>
+            </select>
+
+            <button class="btn-outline">
+              Limpar filtros
+            </button>
+
+          </div>
+
+        </div>
+
+        <!-- TABLE -->
+        <div class="panel">
+
+          <div class="panel-title">
+            <h2>Votações cadastradas</h2>
+
+            <p>
+              Lista de todas as votações do sistema,
+              da mais atual para a mais antiga.
+            </p>
+          </div>
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Título da votação</th>
+                  <th>Criada em</th>
+                  <th>Encerra em</th>
+                  <th>Participantes</th>
+                  <th>Resumo</th>
+                  <th>Status</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                              
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+          <!-- PAGINATION -->
+          <div class="pagination">
+
+            <div class="pagination-buttons">
+              <button>‹</button>
+              <button class="active">1</button>
+              <button>2</button>
+              <button>3</button>
+              <button>...</button>
+              <button>8</button>
+              <button>›</button>
+            </div>
+
+            <span>
+              Mostrando 1 a 5 de 36 votações
+            </span>
+
+          </div>
+
+          <!-- LEGEND -->
+          <div class="legend">
+
+            <div class="legend-item">
+              <span class="badge progress">
+                EM ANDAMENTO
+              </span>
+
+              <p>
+                Votação ativa e disponível para participação.
+              </p>
+            </div>
+
+            <div class="legend-item">
+              <span class="badge closed">
+                ENCERRADA
+              </span>
+
+              <p>
+                Votação encerrada. Resultados disponíveis.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+
+        <span>
+          🔐 Acesso restrito ao superusuário.
+          Todas as ações são registradas e auditadas.
+        </span>
+
+        <span>
+          Última atualização: 20/05/2025 21:46
+        </span>
+
+      </footer>
+
+    </main>
+
+  </div>
+
+</body>
+
+</html>

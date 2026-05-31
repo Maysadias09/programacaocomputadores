@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Criar nova votação</title>
+
+  <link rel="stylesheet" href="/css/tokens/tokens.css">
+  <link rel="stylesheet" href="/css/criar-votacao.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+</head>
+
+<body>
+
+  <div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="sidebar-top">
+
+        <div class="logo">
+          SISTEMA DE VOTAÇÃO <br>
+          E DECISÃO EM GRUPO
+        </div>
+
+        <nav class="menu">
+
+          <a href="#" class="menu-item">
+            <span>🏠</span>
+            <span>Votações Abertas</span>
+          </a>
+
+          <a href="#" class="menu-item active">
+            <span>➕</span>
+            <span>Criar Votação</span>
+          </a>
+
+          <a href="#" class="menu-item">
+            <span>📊</span>
+            <span>Resultados</span>
+          </a>
+
+          <a href="#" class="menu-item">
+            <span>🕘</span>
+            <span>Histórico</span>
+          </a>
+
+          <a href="#" class="menu-item">
+            <span>👤</span>
+            <span>Administração</span>
+          </a>
+
+        </nav>
+
+      </div>
+
+      <div class="sidebar-bottom">
+
+        <div class="info-card">
+          <h4>Dicas</h4>
+
+          <p>
+            Crie votações claras e objetivas.
+            Defina opções que representem bem
+            as diferentes opiniões.
+            Estabeleça um prazo adequado para participação.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <h4>Informações</h4>
+
+          <p>
+            Cada usuário pode votar apenas
+            uma vez por votação.
+            A votação será listada para todos
+            os usuários após a criação.
+          </p>
+        </div>
+
+      </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- HEADER -->
+      <header class="header">
+
+        <div class="user-box">
+          <div class="avatar">U</div>
+          <span>Usuário</span>
+        </div>
+
+      </header>
+
+      <!-- CONTENT -->
+      <section class="content">
+
+        <!-- BACK -->
+        <a href="#" class="back-link">
+          ← Voltar para votações
+        </a>
+
+        <!-- TITLE -->
+        <div class="page-title">
+
+          <h1>Criar nova votação</h1>
+
+          <p>
+            Preencha as informações abaixo
+            para criar uma nova votação.
+          </p>
+
+        </div>
+
+        <!-- GRID -->
+        <div class="form-layout">
+
+          <!-- LEFT -->
+          <div class="left-column">
+
+            <!-- GENERAL -->
+            <div class="panel">
+
+              <h2>1. Informações gerais</h2>
+
+              <div class="form-group">
+
+                <label>Título da votação *</label>
+
+                <input
+                  type="text"
+                  placeholder="Ex.: Qual a melhor tecnologia para o novo projeto?"
+                />
+
+              </div>
+
+              <div class="form-group">
+
+                <label>Descrição (opcional)</label>
+
+                <textarea
+                  placeholder="Descreva o objetivo da votação e forneça mais contexto aos participantes..."
+                ></textarea>
+
+                <span class="counter">0/300</span>
+
+              </div>
+
+            </div>
+
+            <!-- OPTIONS -->
+            <div class="panel">
+
+              <h2>2. Opções da votação</h2>
+
+              <p class="section-description">
+                Adicione as opções disponíveis para os participantes *
+              </p>
+
+              <div class="options-list">
+
+                <div class="option-item">
+                  <span class="drag">⋮⋮</span>
+
+                  <input
+                    type="text"
+                    placeholder="Digite uma opção..."
+                  />
+
+                  <button class="icon-button">
+                    🗑
+                  </button>
+                </div>
+
+                <div class="option-item">
+                  <span class="drag">⋮⋮</span>
+
+                  <input
+                    type="text"
+                    placeholder="Digite uma opção..."
+                  />
+
+                  <button class="icon-button">
+                    🗑
+                  </button>
+                </div>
+
+                <div class="option-item">
+                  <span class="drag">⋮⋮</span>
+
+                  <input
+                    type="text"
+                    placeholder="Digite uma opção..."
+                  />
+
+                  <button class="icon-button">
+                    🗑
+                  </button>
+                </div>
+
+                <div class="option-item">
+                  <span class="drag">⋮⋮</span>
+
+                  <input
+                    type="text"
+                    placeholder="Digite uma opção..."
+                  />
+
+                  <button class="icon-button">
+                    🗑
+                  </button>
+                </div>
+
+              </div>
+
+              <button class="btn-outline add-option">
+                ＋ Adicionar opção
+              </button>
+
+            </div>
+
+          </div>
+
+          <!-- RIGHT -->
+          <div class="right-column">
+
+            <!-- DEADLINE -->
+            <div class="panel">
+
+              <h2>3. Prazo da votação</h2>
+
+              <div class="form-group">
+
+                <label>Data de início *</label>
+
+                <div class="date-grid">
+
+                  <input
+                    type="text"
+                    placeholder="dd/mm/aaaa"
+                  />
+
+                  <input
+                    type="text"
+                    placeholder="hh:mm"
+                  />
+
+                </div>
+
+              </div>
+
+              <div class="form-group">
+
+                <label>Data de término *</label>
+
+                <div class="date-grid">
+
+                  <input
+                    type="text"
+                    placeholder="dd/mm/aaaa"
+                  />
+
+                  <input
+                    type="text"
+                    placeholder="hh:mm"
+                  />
+
+                </div>
+
+              </div>
+
+              <div class="info-box">
+                ⏱ A votação será automaticamente encerrada
+                na data e hora definidas.
+              </div>
+
+            </div>
+
+            <!-- IDENTIFICATION -->
+            <div class="panel">
+
+              <h2>4. Identificação do usuário</h2>
+
+              <div class="form-group">
+
+                <label>Tipo de identificação *</label>
+
+                <select>
+                  <option>Matrícula</option>
+                  <option>E-mail</option>
+                  <option>CPF</option>
+                </select>
+
+              </div>
+
+              <div class="info-box">
+                ℹ A identificação por matrícula garante
+                que cada usuário possa votar apenas uma vez
+                nesta votação.
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="page-actions">
+
+          <button class="btn-secondary">
+            Cancelar
+          </button>
+
+          <button class="btn-primary">
+            Criar votação
+          </button>
+
+        </div>
+
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+
+        <span>
+          🔐 Votações criadas ficam disponíveis para todos
+          os usuários do sistema dentro do período definido.
+        </span>
+
+        <span>
+          Última atualização: 20/05/2025 21:46
+        </span>
+
+      </footer>
+
+    </main>
+
+  </div>
+
+</body>
+
+</html>
