@@ -60,6 +60,25 @@ async def tela_criar_votacao(request: Request):
     """Renderiza a tela de criação de formulários."""
     return templates.TemplateResponse(request=request, name="criarVotacao.html")
 
+@app.get("/superusuario/encerrar-votacao", response_class=HTMLResponse)
+async def tela_encerrar_votacao(request: Request, db: Session = Depends(get_db)):
+    """Renderiza a tela para encerramento manual de votações antes do prazo."""
+    # Busca apenas as votações ativas para enviar ao HTML
+    votacoes_ativas = db.query(Votacao).filter(Votacao.status == "ATIVA").all()
+    return templates.TemplateResponse(
+        request=request, 
+        name="encerrarVotacao.html", 
+        context={"votacoes_ativas": votacoes_ativas}
+    )
+
+@app.get("/superusuario/pesquisar-votacao", response_class=HTMLResponse)
+async def tela_pesquisar_votacao(request: Request):
+    """Renderiza a tela de pesquisa geral de votações."""
+    return templates.TemplateResponse(
+        request=request, 
+        name="pesquisarVotacao.html"
+    )
+
 
 # ==========================================
 # ROTAS DE API (Conexão com Regras de Negócio)

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pesquisar Votação</title>
+
+  <link rel="stylesheet" href="superusuario.css">
+  <link rel="stylesheet" href="/css/tokens/tokens.css">
+  <link rel="stylesheet" href="/css/pesquisarVotacao.css">
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+</head>
+<body>
+
+  <div class="layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+      <div class="logo">
+        <h2>SISTEMA DE VOTAÇÃO</h2>
+        <span>E DECISÃO EM GRUPO</span>
+      </div>
+
+      <nav class="menu">
+
+        <a href="#" class="menu-item">
+          <span>🏠</span>
+          <span>Votações Abertas</span>
+        </a>
+
+        <a href="/criarVotacao.html" class="menu-item active">
+          <span>➕</span>
+          <span>Criar Votação</span>
+        </a>
+
+        <a href="#" class="menu-item">
+          <span>📊</span>
+          <span>Resultados</span>
+        </a>
+
+        <a href="/encerrarVotacao.html" class="menu-item">
+          <span>🕘</span>
+          <span>Histórico</span>
+        </a>
+
+        <a href="/painelSU.html" class="menu-item">
+          <span>👤</span>
+          <span>Administração</span>
+        </a>
+
+      </nav>
+
+      <div class="info-card">
+        <h4>Dicas</h4>
+        <p>
+          Como superusuário, você pode criar votações,
+          encerrar votações em andamento e visualizar
+          resultados e relatórios.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h4>Informações</h4>
+        <p>
+          Os resultados só podem ser acessados por
+          superusuários, garantindo a imparcialidade
+          do processo.
+        </p>
+      </div>
+
+    </aside>
+
+    <!-- Conteúdo -->
+    <main class="content">
+
+      <header class="topbar">
+        <div></div>
+
+        <div class="user">
+          <i class="fa-regular fa-user"></i>
+          <span>Superusuário</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+      </header>
+
+      <section class="page">
+
+        <a href="#" class="back-link">
+          <i class="fa-solid fa-arrow-left"></i>
+          Voltar para painel do superusuário
+        </a>
+
+        <h1>Pesquisar votação</h1>
+
+        <p class="subtitle">
+          Encontre votações criadas por meio da matrícula
+          informada na criação.
+        </p>
+
+        <!-- Pesquisa -->
+        <div class="card">
+
+          <h3>Matrícula</h3>
+
+          <p>
+            Digite a matrícula utilizada na criação da votação.
+          </p>
+
+          <div class="search-box">
+
+            <div class="input-group">
+              <i class="fa-regular fa-user"></i>
+              <input
+                type="text"
+                placeholder="Digite a matrícula"
+              >
+            </div>
+
+            <button>
+              <i class="fa-solid fa-magnifying-glass"></i>
+              Pesquisar
+            </button>
+
+          </div>
+
+        </div>
+
+        <!-- Tabela -->
+        <div class="card">
+
+          <h3>Votações encontradas</h3>
+
+          <p>
+            Lista de votações criadas com a matrícula informada.
+          </p>
+
+          <table>
+
+            <thead>
+              <tr>
+                <th>Título da votação</th>
+                <th>Criada em</th>
+                <th>Encerra em</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              
+
+            </tbody>
+
+          </table>
+
+          <div class="empty-message">
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <p>
+              Utilize a matrícula para buscar as votações criadas.
+              <br>
+              A lista exibirá apenas as votações referentes a esta matrícula.
+            </p>
+          </div>
+
+        </div>
+
+      </section>
+
+      <footer class="footer">
+
+        <span>
+          Acesso restrito ao superusuário.
+          Todas as ações são registradas e auditadas.
+        </span>
+
+        <span>
+          Última atualização: 20/05/2025 21:46
+        </span>
+
+      </footer>
+
+    </main>
+
+  </div>
+
+</body>
+</html>

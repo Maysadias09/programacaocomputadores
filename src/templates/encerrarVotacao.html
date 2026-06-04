@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Encerrar Votação</title>
+<link rel="stylesheet" href="/css/tokens/tokens.css">
+<link rel="stylesheet" href="/css/encerrarVotacao.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <h2>SISTEMA DE VOTAÇÃO</h2>
+            <span>E DECISÃO EM GRUPO</span>
+        </div>
+
+        <nav class="menu">
+
+            <a href="#" class="menu-item">
+              <span>🏠</span>
+              <span>Votações Abertas</span>
+            </a>
+  
+            <a href="/criarVotacao.html" class="menu-item active">
+              <span>➕</span>
+              <span>Criar Votação</span>
+            </a>
+  
+            <a href="#" class="menu-item">
+              <span>📊</span>
+              <span>Resultados</span>
+            </a>
+  
+            <a href="/encerrarVotacao.html" class="menu-item">
+              <span>🕘</span>
+              <span>Histórico</span>
+            </a>
+  
+            <a href="/painelSU.html" class="menu-item">
+              <span>👤</span>
+              <span>Administração</span>
+            </a>
+  
+          </nav>
+  
+
+        <div class="info-card">
+
+            <h4>Dicas</h4>
+
+            <p>
+                Como superusuário, você pode criar votações,
+                encerrar votações em andamento e visualizar
+                resultados e relatórios.
+            </p>
+
+        </div>
+
+        <div class="info-card">
+
+            <h4>Informações</h4>
+
+            <p>
+                Os resultados só podem ser acessados por
+                superusuários, garantindo a imparcialidade
+                do processo.
+            </p>
+
+        </div>
+
+    </aside>
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+        <!-- HEADER -->
+
+        <header class="header">
+
+            <div></div>
+
+            <div class="user-menu">
+                <i class="fa-regular fa-user"></i>
+                <span>Superusuário</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+
+        </header>
+
+        <!-- PAGE -->
+
+        <section class="page">
+
+            <a href="#" class="back-link">
+                <i class="fa-solid fa-arrow-left"></i>
+                Voltar para painel do superusuário
+            </a>
+
+            <h1>Encerrar votação</h1>
+
+            <p class="subtitle">
+                Visualize os dados da votação antes de encerrá-la.
+            </p>
+
+            <!-- DADOS -->
+
+            <section class="card">
+
+                <h2>Dados da votação</h2>
+
+                <div class="vote-info">
+
+                    <div class="column">
+
+                        <div class="item">
+                            <strong>Título:</strong>
+                            <span id="titulo"></span>
+                        </div>
+
+                        <div class="item">
+                            <strong>Descrição:</strong>
+                            <span id="descricao"
+                               
+                            </span>
+                        </div>
+
+                        <div class="item">
+                            <strong>Criada em:</strong>
+                            <span id="data-criacao"></span>
+                        </div>
+
+                        <div class="item">
+                            <strong>Criada por:</strong>
+                            <span id="criador"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="column">
+
+                        <div class="item">
+                            <strong>Data de início:</strong>
+                            <span id="data-inicio"></span>
+                        </div>
+
+                        <div class="item">
+                            <strong>Data de término programada:</strong>
+                            <span id="data-termino"></span>
+                        </div>
+
+                        <div class="item">
+                            <strong>Status atual:</strong>
+                            <span class="status">
+                                
+                            </span>
+                        </div>
+
+                        <div class="item">
+                            <strong>Participantes:</strong>
+                            <span id=participantes></span>
+                        </div>
+
+                        <div class="item">
+                            <strong>Votos registrados:</strong>
+                            <span id="votos-registrados"></span>
+                        </div>
+
+                        <div class="item">
+                            <strong>Opções disponíveis:</strong>
+                            <span id="total-opcao"></span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <div class="content-grid">
+
+                <!-- RESULTADOS -->
+
+                <section class="card">
+
+                    <h2>Opções e resultados</h2>
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Opção</th>
+                                <th>Votos</th>
+                                <th>Percentual</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                           
+
+                        </tbody>
+
+                    </table>
+
+                </section>
+
+                <!-- INDICADORES -->
+
+                <section class="card">
+
+                    <h2>Indicadores</h2>
+
+                    <div class="indicator">
+
+                        <i class="fa-regular fa-circle-check"></i>
+
+                        <div>
+                            <h4>Situação do grupo</h4>
+
+                            <p>
+                                Há uma alternativa com maioria significativa.
+                                Concordância identificada.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="indicator">
+
+                        <i class="fa-solid fa-chart-column"></i>
+
+                        <div>
+                            <h4>Maior diferença</h4>
+
+                            <p>
+                                A diferença entre a 1ª e a 2ª colocada é de
+                                16,67%.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="indicator">
+
+                        <i class="fa-regular fa-user"></i>
+
+                        <div>
+                            <h4>Nível de participação</h4>
+
+                            <p>
+                                42 de 45 participantes votaram.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="warning">
+
+                        <i class="fa-solid fa-circle-info"></i>
+
+                        <p>
+                            Ao encerrar a votação ela será finalizada
+                            imediatamente e não poderá receber novos votos.
+                        </p>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+            <!-- AÇÃO -->
+
+            <section class="card action-card">
+
+                <div>
+                    <h2>Ação</h2>
+                    <p>Deseja encerrar esta votação agora?</p>
+                </div>
+
+                <div class="buttons">
+
+                    <button class="btn-secondary">
+                        Cancelar
+                    </button>
+
+                    <button class="btn-primary">
+                        Encerrar votação
+                    </button>
+
+                </div>
+
+            </section>
+
+        </section>
+
+        <!-- FOOTER -->
+
+        <footer class="footer">
+
+            <div>
+                <i class="fa-solid fa-shield"></i>
+                Acesso restrito ao superusuário.
+                Todas as ações são registradas e auditadas.
+            </div>
+
+            <div>
+                Última atualização: 20/05/2025 21:46
+            </div>
+
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>
