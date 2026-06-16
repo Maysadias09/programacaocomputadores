@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de Barras</title>
+
+    <!-- CDN do Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <h1>Resultados</h1>
+
+    <canvas id="meuGrafico"></canvas>
+
+    <script>
+        const ctx = document.getElementById('meuGrafico').getContext('2d');
+
+        const meuGrafico = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Opção 1', 'Opção 2', 'Opção 3'],
+                datasets: [{
+                    label: 'Votos',
+                    data: [1200, 3200, 4200]
+                }]
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -7,8 +7,8 @@
 
   <title>Painel do Superusuário</title>
 
-  <link rel="stylesheet" href="/css/tokens/tokens.css">
-  <link rel="stylesheet" href="/css/painelSU.css">
+<link rel="stylesheet" href="/css/painelSU.css">
+<link rel="stylesheet" href="/css/tokens/tokens.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -127,9 +127,11 @@
               Crie uma nova votação para o grupo.
             </p>
 
-            <button class="btn-outline">
-              Nova votação
-            </button>
+            <button
+  class="btn-outline"
+  onclick="window.location.href='/superusuario/criar-votacao'">
+  Nova votação
+</button>
           </div>
 
           <div class="action-card">
@@ -228,7 +230,7 @@
           </div>
 
           <div class="table-wrapper">
-
+              <p>Total de votações: {{ votacoes|length }}</p>
             <table>
 
               <thead>
@@ -244,9 +246,11 @@
               </thead>
 
               <tbody>
-
-                              
-
+                 {% for votacao in votacoes %}
+                        <tr>
+                          <td>{{ votacao.titulo}}</td>
+                        </tr>      
+                  {% endfor %}
               </tbody>
 
             </table>

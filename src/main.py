@@ -13,7 +13,7 @@ from OperacoesAdmin import OperacoesAdmin
 from LogicaMotor import LogicaMotor
 
 # 1. Configuração do Banco de Dados
-DATABASE_URL = "mysql+mysqlconnector://root:@localhost/sistema_decisoes"
+DATABASE_URL = "mysql+mysqlconnector://root:123456@localhost:3306/sistema_decisoes"
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
@@ -86,12 +86,20 @@ async def tela_pesquisar_votacao(request: Request):
 
 @app.post("/api/admin/login")
 async def api_admin_login(senha: str = Form(...)):
-    """Recebe o formulário de login e valida a string preestabelecida[cite: 33]."""
+    print("Senha recebida:", senha)
+
     if senha == "admin123":
-        # Redireciona para o painel se a senha estiver correta.
-        return RedirectResponse(url="/superusuario/painel", status_code=303)
-    
-    raise HTTPException(status_code=401, detail="Senha incorreta. Acesso negado.")
+        print("LOGIN OK")
+        return RedirectResponse(
+            url="/superusuario/painel",
+            status_code=303
+        )
+
+    print("LOGIN FALHOU")
+    raise HTTPException(
+        status_code=401,
+        detail="Senha incorreta. Acesso negado."
+    )
 
 @app.post("/api/votacoes/criar")
 async def api_criar_votacao(
@@ -130,3 +138,4 @@ async def api_ver_consenso(id_votacao: int, db: Session = Depends(get_db)):
     # Chama o método que analisa os dados via DataFrame Pandas
     resultado = motor.analisarConsenso(id_votacao)
     return {"consenso": resultado}
+

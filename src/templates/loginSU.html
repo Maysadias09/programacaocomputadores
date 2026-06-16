@@ -128,7 +128,7 @@
               para entrar no painel do superusuário.
             </p>
 
-            <form>
+            <form action="/api/admin/login" method="post">
 
               <div class="form-group">
 
@@ -164,9 +164,10 @@
                   </svg>
 
                   <input
-                    type="password"
-                    placeholder="Digite sua senha"
-                  />
+  type="password"
+  name="senha"
+  placeholder="Digite sua senha"
+/>
 
                   <button
                     type="button"
@@ -178,9 +179,9 @@
 
               </div>
 
-              <button class="btn">
-                Entrar
-              </button>
+              <button type="submit" class="btn">
+  Entrar
+</button>
 
             </form>
 
