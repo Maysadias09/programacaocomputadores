@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Votação</title>
+
+<link rel="stylesheet" href="/css/tokens/tokens.css">
+<link rel="stylesheet" href="/css/votacao.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1 id="titulo">Carregando...</h1>
+
+        <p id="descricao"></p>
+
+        <hr>
+
+        <h3>Escolha uma opção:</h3>
+
+        <form id="formVoto">
+
+            <div id="lista-opcoes"> </div>
+
+            <button
+                type="submit"
+                class="btn-primary"
+            >
+                Votar
+            </button>
+
+        </form>
+
+        <div id="mensagem"></div>
+
+    </div>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+const id = params.get("id");
+
+console.log("ID recebido:", id);
+
+async function carregarVotacao() {
+
+    const resposta =
+        await fetch(`/api/votacoes/${id}`);
+
+    const votacao =
+        await resposta.json();
+
+    document.getElementById("titulo").textContent =
+        votacao.titulo;
+
+    document.getElementById("descricao").textContent =
+        votacao.descricao;
+
+    const respostaOpcoes =
+        await fetch(`/api/votacoes/${id}/opcoes`);
+
+    const opcoes =
+        await respostaOpcoes.json();
+
+    let html = "";
+
+    opcoes.forEach(opcao => {
+
+        html += `
+            <label class="opcao">
+                <input
+                    type="radio"
+                    name="opcao"
+                    value="${opcao.id}"
+                    required
+                >
+
+                ${opcao.texto}
+            </label>
+        `;
+    });
+
+    document.getElementById("lista-opcoes").innerHTML =
+        html;
+}
+
+document
+.getElementById("formVoto")
+.addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    const opcaoSelecionada =
+        document.querySelector(
+            'input[name="opcao"]:checked'
+        );
+
+    if(!opcaoSelecionada){
+        return;
+    }
+
+    const idOpcao =
+        opcaoSelecionada.value;
+
+    const resposta =
+        await fetch(
+            `/api/votar?id_opcao=${idOpcao}`,
+            {
+                method: "POST"
+            }
+        );
+
+    if(resposta.ok){
+
+        document.getElementById("mensagem").innerHTML =
+            `
+            <div class="sucesso">
+                Voto registrado com sucesso!
+            </div>
+            `;
+
+    } else {
+
+        document.getElementById("mensagem").innerHTML =
+            `
+            <div class="erro">
+                Erro ao registrar voto.
+            </div>
+            `;
+    }
+});
+
+carregarVotacao();
+
+</script>
+
+</body>
+</html>

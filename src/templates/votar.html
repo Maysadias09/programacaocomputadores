@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+
+<title>Votar</title>
+
+<link rel="stylesheet" href="/css/tokens/tokens.css">
+<link rel="stylesheet" href="/css/votar.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1 >Votaçãoes Disponíveis</h1>
+
+        <p id="descricao"></p>
+
+        <hr>
+
+        <div id="lista-votacoes"> </div>
+
+    </div>
+
+</div>
+
+<script>
+
+async function carregarVotacoes() {
+
+    const resposta =
+        await fetch("/api/votacoes");
+
+    const votacoes =
+        await resposta.json();
+
+    console.log(votacoes);
+
+    let html = "";
+
+    votacoes.forEach(votacao => {
+
+        if(votacao.status === "ATIVA") {
+
+            html += `
+                <div style="
+                    border:1px solid #ddd;
+                    padding:20px;
+                    margin-bottom:10px;
+                    border-radius:8px;
+                ">
+
+                    <h3>${votacao.titulo}</h3>
+
+                    <p>${votacao.descricao}</p>
+                    uvicorn main:app --reload
+                    <p>ID: ${votacao.id}</p>
+
+                    <a href="/votacao?id=${votacao.id}">
+                        <button>
+                            Abrir votação
+                        </button>
+                    </a>
+
+                </div>
+            `;
+        }
+    });
+
+    document.getElementById("lista-votacoes")
+        .innerHTML = html;
+}
+
+carregarVotacoes();
+
+
+</script>
+
+</body>
+</html>

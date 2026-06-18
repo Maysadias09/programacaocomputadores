@@ -28,27 +28,22 @@
 
       <nav class="menu">
 
-        <a href="#" class="menu-item">
+        <a href="/superusuario/pesquisar-votacao" class="menu-item">
           <span>🏠</span>
           <span>Votações Abertas</span>
         </a>
 
-        <a href="/criarVotacao.html" class="menu-item active">
+        <a href="/superusuario/criar-votacao" class="menu-item active">
           <span>➕</span>
           <span>Criar Votação</span>
         </a>
 
-        <a href="#" class="menu-item">
+        <a href="/resultados" class="menu-item">
           <span>📊</span>
           <span>Resultados</span>
         </a>
 
-        <a href="/encerrarVotacao.html" class="menu-item">
-          <span>🕘</span>
-          <span>Histórico</span>
-        </a>
-
-        <a href="/painelSU.html" class="menu-item">
+        <a href="/superusuario/painel" class="menu-item">
           <span>👤</span>
           <span>Administração</span>
         </a>
@@ -90,7 +85,7 @@
 
       <section class="page">
 
-        <a href="#" class="back-link">
+        <a href="/superusuario/painel" class="back-link">
           <i class="fa-solid fa-arrow-left"></i>
           Voltar para painel do superusuário
         </a>
@@ -102,34 +97,7 @@
           informada na criação.
         </p>
 
-        <!-- Pesquisa -->
-        <div class="card">
-
-          <h3>Matrícula</h3>
-
-          <p>
-            Digite a matrícula utilizada na criação da votação.
-          </p>
-
-          <div class="search-box">
-
-            <div class="input-group">
-              <i class="fa-regular fa-user"></i>
-              <input
-                type="text"
-                placeholder="Digite a matrícula"
-              >
-            </div>
-
-            <button>
-              <i class="fa-solid fa-magnifying-glass"></i>
-              Pesquisar
-            </button>
-
-          </div>
-
-        </div>
-
+        
         <!-- Tabela -->
         <div class="card">
 
@@ -151,9 +119,7 @@
               </tr>
             </thead>
 
-            <tbody>
-
-              
+            <tbody id="lista-votacoes">
 
             </tbody>
 
@@ -189,6 +155,51 @@
     </main>
 
   </div>
+
+<script>
+
+
+function abrirVotacao(id){
+
+    window.location.href =
+        `/superusuario/encerrar-votacao?id=${id}`;
+
+}
+
+async function carregarVotacoes() {
+
+    const resposta = await fetch('/api/votacoes');
+
+    const votacoes = await resposta.json();
+
+    const tbody =
+        document.getElementById('lista-votacoes');
+
+    tbody.innerHTML = '';
+
+    votacoes.forEach(votacao => {
+
+        tbody.innerHTML += `
+            <tr>
+                <td>${votacao.titulo}</td>
+                <td>${votacao.dataCriacao}</td>
+                <td>${votacao.prazo_final}</td>
+                <td>${votacao.status}</td>
+                <td>
+                    <button onclick="abrirVotacao(${votacao.id})">
+                        Abrir
+                    </button>
+                </td>
+            </tr>
+        `;
+
+    });
+
+}
+
+carregarVotacoes();
+
+</script>
 
 </body>
 </html>

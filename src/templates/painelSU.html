@@ -35,7 +35,7 @@
 
         <nav class="menu">
 
-            <a href="/votacoes" class="menu-item">
+            <a href="/superusuario/pesquisar-votacao" class="menu-item">
               <span>🏠</span>
               <span>Votações Abertas</span>
             </a>
@@ -50,10 +50,7 @@
               <span>Resultados</span>
             </a>
 
-            <a href="/superusuario/encerrar-votacao" class="menu-item">
-              <span>🕘</span>
-              <span>Histórico</span>
-            </a>
+            
 
             <a href="/superusuario/painel" class="menu-item">
               <span>👤</span>
@@ -97,9 +94,22 @@
       <header class="header">
 
         <div class="user-box">
-          <div class="avatar">S</div>
-          <span>Superusuário</span>
-        </div>
+
+    <i class="fa-regular fa-user"></i>
+<div class="avatar">S</div>
+    <span>Superusuário</span>
+
+
+    
+    <a href="/usuario/login" class="header-link">
+        Entrar como usuário
+    </a>
+
+    <a href="/superusuario/login" class="header-link sair">
+        Sair
+    </a>
+
+</div>
 
       </header>
 
@@ -137,15 +147,14 @@
           <div class="action-card">
             <div class="card-icon">🚩</div>
 
-            <h3>Encerrar votação</h3>
+            <h3>VOTAR</h3>
 
             <p>
-              Encerre uma votação antes do prazo,
-              se necessário.
+              Realize a sua votação
             </p>
 
-            <button class="btn-outline">
-              Encerrar votação
+            <button class="btn-outline" onclick="window.location.href='/usuario/login'">
+              Realizar votação
             </button>
           </div>
 
@@ -159,7 +168,8 @@
               gráficos e indicadores.
             </p>
 
-            <button class="btn-outline">
+            <button class="btn-outline"
+  onclick="window.location.href='/resultados'">
               Ver resultados
             </button>
           </div>
@@ -174,49 +184,14 @@
               status ou data.
             </p>
 
-            <button class="btn-outline">
+            <button class="btn-outline" onclick="window.location.href='/superusuario/pesquisar-votacao'">
               Pesquisar
             </button>
           </div>
 
         </div>
 
-        <!-- FILTER -->
-        <div class="panel">
-
-          <div class="panel-title">
-            <h2>Pesquisar votações</h2>
-
-            <p>
-              Encontre votações pelo título, status ou período.
-            </p>
-          </div>
-
-          <div class="filters">
-
-            <div class="search-input">
-              <input
-                type="text"
-                placeholder="Buscar por título da votação..."
-              />
-            </div>
-
-            <select>
-              <option>Todos</option>
-            </select>
-
-            <select>
-              <option>Todos os períodos</option>
-            </select>
-
-            <button class="btn-outline">
-              Limpar filtros
-            </button>
-
-          </div>
-
-        </div>
-
+        
         <!-- TABLE -->
         <div class="panel">
 
@@ -236,12 +211,7 @@
               <thead>
                 <tr>
                   <th>Título da votação</th>
-                  <th>Criada em</th>
-                  <th>Encerra em</th>
-                  <th>Participantes</th>
-                  <th>Resumo</th>
-                  <th>Status</th>
-                  <th>Ações</th>
+                  
                 </tr>
               </thead>
 
@@ -256,54 +226,6 @@
             </table>
 
           </div>
-
-          <!-- PAGINATION -->
-          <div class="pagination">
-
-            <div class="pagination-buttons">
-              <button>‹</button>
-              <button class="active">1</button>
-              <button>2</button>
-              <button>3</button>
-              <button>...</button>
-              <button>8</button>
-              <button>›</button>
-            </div>
-
-            <span>
-              Mostrando 1 a 5 de 36 votações
-            </span>
-
-          </div>
-
-          <!-- LEGEND -->
-          <div class="legend">
-
-            <div class="legend-item">
-              <span class="badge progress">
-                EM ANDAMENTO
-              </span>
-
-              <p>
-                Votação ativa e disponível para participação.
-              </p>
-            </div>
-
-            <div class="legend-item">
-              <span class="badge closed">
-                ENCERRADA
-              </span>
-
-              <p>
-                Votação encerrada. Resultados disponíveis.
-              </p>
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
 
       <!-- FOOTER -->
       <footer class="footer">

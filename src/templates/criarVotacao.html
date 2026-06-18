@@ -38,7 +38,7 @@
 
 <nav class="menu">
 
-      <a href="/votacoes" class="menu-item">
+      <a href="/superusuario/pesquisar-votacao" class="menu-item">
         <span>🏠</span>
         <span>Votações Abertas</span>
       </a>
@@ -53,10 +53,7 @@
         <span>Resultados</span>
       </a>
 
-      <a href="/superusuario/encerrar-votacao" class="menu-item">
-        <span>🕘</span>
-        <span>Histórico</span>
-      </a>
+    
 
       <a href="/superusuario/painel" class="menu-item">
         <span>👤</span>
@@ -113,7 +110,7 @@
         
 
         <!-- BACK -->
-        <a href="#" class="back-link">
+        <a href="/superusuario/pesquisar-votacao" class="back-link">
           ← Voltar para votações
         </a>
 
@@ -129,6 +126,7 @@
 
         </div>
 
+        <form method="POST" action="/api/votacoes/criar">
         <!-- GRID -->
         <div class="form-layout">
 
@@ -144,10 +142,12 @@
 
                 <label>Título da votação *</label>
 
-                <input
-                  type="text"
-                  placeholder="Ex.: Qual a melhor tecnologia para o novo projeto?"
-                />
+              <input
+                type="text"
+                name="titulo"
+                placeholder="Ex.: Qual a melhor tecnologia para o novo projeto?"
+                required
+              />
 
               </div>
 
@@ -155,9 +155,10 @@
 
                 <label>Descrição (opcional)</label>
 
-                <textarea
-                  placeholder="Descreva o objetivo da votação e forneça mais contexto aos participantes..."
-                ></textarea>
+              <textarea
+               name="descricao"
+               placeholder="Descreva o objetivo da votação e forneça mais contexto aos participantes..."
+              ></textarea>
 
                 <span class="counter">0/300</span>
 
@@ -181,12 +182,13 @@
 
                   <input
                     type="text"
+                    name="opcoes"
                     placeholder="Digite uma opção..."
                   />
 
-                  <button class="icon-button">
-                    🗑
-                  </button>
+                  <button type="button" class="icon-button remove-option">
+  🗑
+</button>
                 </div>
 
                 <div class="option-item">
@@ -194,12 +196,13 @@
 
                   <input
                     type="text"
+                    name="opcoes"
                     placeholder="Digite uma opção..."
                   />
 
-                  <button class="icon-button">
-                    🗑
-                  </button>
+                  <button type="button" class="icon-button remove-option">
+  🗑
+</button>
                 </div>
 
                 <div class="option-item">
@@ -207,12 +210,13 @@
 
                   <input
                     type="text"
+                    name="opcoes"
                     placeholder="Digite uma opção..."
                   />
 
-                  <button class="icon-button">
-                    🗑
-                  </button>
+                  <button type="button" class="icon-button remove-option">
+  🗑
+</button>
                 </div>
 
                 <div class="option-item">
@@ -220,19 +224,20 @@
 
                   <input
                     type="text"
+                    name="opcoes"
                     placeholder="Digite uma opção..."
                   />
 
-                  <button class="icon-button">
-                    🗑
-                  </button>
+                  <button type="button" class="icon-button remove-option">
+  🗑
+</button>
                 </div>
 
               </div>
 
-              <button class="btn-outline add-option">
-                ＋ Adicionar opção
-              </button>
+              <button type="button" id="btnAddOption" class="btn-outline add-option">
+  ＋ Adicionar opção
+</button>
 
             </div>
 
@@ -252,16 +257,11 @@
 
                 <div class="date-grid">
 
-                  <input
-                    type="text"
-                    placeholder="dd/mm/aaaa"
-                  />
-
-                  <input
-                    type="text"
-                    placeholder="hh:mm"
-                  />
-
+                <input
+                  type="datetime-local"
+                  name="prazo_final"
+                  required
+                />
                 </div>
 
               </div>
@@ -273,14 +273,10 @@
                 <div class="date-grid">
 
                   <input
-                    type="text"
-                    placeholder="dd/mm/aaaa"
-                  />
-
-                  <input
-                    type="text"
-                    placeholder="hh:mm"
-                  />
+                  type="datetime-local"
+                  name="prazo_final"
+                  required
+                />
 
                 </div>
 
@@ -293,49 +289,22 @@
 
             </div>
 
-            <!-- IDENTIFICATION -->
-            <div class="panel">
-
-              <h2>4. Identificação do usuário</h2>
-
-              <div class="form-group">
-
-                <label>Tipo de identificação *</label>
-
-                <select>
-                  <option>Matrícula</option>
-                  <option>E-mail</option>
-                  <option>CPF</option>
-                </select>
-
-              </div>
-
-              <div class="info-box">
-                ℹ A identificação por matrícula garante
-                que cada usuário possa votar apenas uma vez
-                nesta votação.
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
 
         <!-- ACTIONS -->
         <div class="page-actions">
 
-          <button class="btn-secondary">
+          <button  type="button" class="btn-secondary">
             Cancelar
           </button>
 
-          <button class="btn-primary">
+        <button type="submit" class="btn-primary" >
             Criar votação
-          </button>
+        </button>
 
         </div>
 
       </section>
+</form>
 
       <!-- FOOTER -->
       <footer class="footer">
@@ -354,7 +323,67 @@
     </main>
 
   </div>
+<script>
 
+const btnAddOption = document.getElementById("btnAddOption");
+const optionsList = document.querySelector(".options-list");
+
+btnAddOption.addEventListener("click", () => {
+
+    const novaOpcao = document.createElement("div");
+
+    novaOpcao.className = "option-item";
+
+    novaOpcao.innerHTML = `
+        <span class="drag">⋮⋮</span>
+
+        <input
+            type="text"
+            name="opcoes[]"
+            placeholder="Digite uma opção..."
+        >
+
+        <button
+            type="button"
+            class="icon-button remove-option"
+        >
+            🗑
+        </button>
+    `;
+
+    optionsList.appendChild(novaOpcao);
+});
+
+document.addEventListener("click", function(event){
+
+    if(event.target.classList.contains("remove-option")){
+
+        event.target.closest(".option-item").remove();
+
+    }
+
+});
+
+const tipo = document.getElementById("tipoIdentificacao");
+const campo = document.getElementById("identificacao");
+
+tipo.addEventListener("change", function(){
+
+    if(this.value === "matricula"){
+        campo.placeholder = "Digite a matrícula";
+    }
+
+    if(this.value === "email"){
+        campo.placeholder = "Digite o e-mail";
+    }
+
+    if(this.value === "cpf"){
+        campo.placeholder = "Digite o CPF";
+    }
+
+});
+
+</script>
 </body>
 
 </html>

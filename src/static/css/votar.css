@@ -1,0 +1,38 @@
+body{
+    background:var(--color-bg);
+    font-family:var(--font-family);
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:40px;
+}
+
+.card{
+    background:white;
+    border-radius:12px;
+    padding:30px;
+}
+
+.opcao{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:20px;
+
+    border:1px solid #ddd;
+
+    margin-top:10px;
+
+    border-radius:8px;
+}
+
+.opcao button{
+    background:var(--color-primary);
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:6px;
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+
+<title>Resultados</title>
+
+<link rel="stylesheet" href="/css/tokens/tokens.css">
+<link rel="stylesheet" href="/css/resultados.css">
+
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Dashboard de Resultados</h1>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Votações Ativas</h3>
+            <span id="ativas">0</span>
+        </div>
+
+        <div class="card">
+            <h3>Votações Encerradas</h3>
+            <span id="encerradas">0</span>
+        </div>
+
+        <div class="card">
+            <h3>Total de Votos</h3>
+            <span id="votos">0</span>
+        </div>
+
+    </div>
+
+    <hr>
+
+    <h2>Resultado da Votação</h2>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Opção</th>
+                <th>Votos</th>
+                <th>Percentual</th>
+            </tr>
+        </thead>
+
+        <tbody id="resultado-body">
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<script>
+
+const params =
+    new URLSearchParams(window.location.search);
+
+const id =
+    params.get("id");
+
+async function carregarDashboard(){
+
+    const resp =
+        await fetch("/api/dashboard");
+
+    const dados =
+        await resp.json();
+
+    document.getElementById("ativas")
+        .textContent = dados.ativas;
+
+    document.getElementById("encerradas")
+        .textContent = dados.encerradas;
+
+    document.getElementById("votos")
+        .textContent = dados.votos;
+}
+
+async function carregarResultado(){
+
+    const resp =
+        await fetch(`/api/votacoes/${id}/resultado`);
+
+    const resultado =
+        await resp.json();
+
+    let html = "";
+
+    resultado.forEach(item => {
+
+        html += `
+        <tr>
+            <td>${item.texto}</td>
+            <td>${item.votos}</td>
+            <td>${item.percentual.toFixed(1)}%</td>
+        </tr>
+        `;
+    });
+
+    document.getElementById("resultado-body")
+        .innerHTML = html;
+}
+
+carregarDashboard();
+carregarResultado();
+
+</script>
+
+</body>
+</html>

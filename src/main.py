@@ -5,7 +5,8 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from datetime import datetime
-
+from fastapi import Form
+from typing import List
 # Importação das suas classes de backend existentes
 from models import Votacao, Opcao, Voto
 from Operacoes import Operacoes
@@ -79,10 +80,89 @@ async def tela_pesquisar_votacao(request: Request):
         name="pesquisarVotacao.html"
     )
 
+@app.get("/usuario/login", response_class=HTMLResponse)
+async def login_usuario(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="loginUsuario.html"
+    )
+
+@app.get("/usuario/votacoes", response_class=HTMLResponse)
+async def tela_votar(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="votar.html"
+    )
+
+@app.get("/usuario/votar", response_class=HTMLResponse)
+async def tela_votacao(
+    request: Request
+):
+    return templates.TemplateResponse(
+        request=request,
+        name="votar.html"
+    )    
+
+@app.get("/votacao", response_class=HTMLResponse)
+async def tela_votacao(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="votacao.html"
+    )
+
+@app.get("/resultados", response_class=HTMLResponse)
+async def tela_resultados(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="resultados.html"
+    )    
+
+
 
 # ==========================================
 # ROTAS DE API (Conexão com Regras de Negócio)
 # ==========================================
+
+
+@app.get("/api/resultados")
+async def resultados(db: Session = Depends(get_db)):
+
+    votacoes = db.query(Votacao).filter(
+        Votacao.status == "ENCERRADA"
+    ).all()
+
+    retorno = []
+
+    for votacao in votacoes:
+
+        opcoes = db.query(Opcao).filter(
+            Opcao.votacoes_idVotacoes == votacao.idVotacoes
+        ).all()
+
+        resultado = []
+
+        total = 0
+
+        for opcao in opcoes:
+
+            qtd = db.query(Voto).filter(
+                Voto.opcoes_idOpcoes == opcao.idOpcoes
+            ).count()
+
+            total += qtd
+
+            resultado.append({
+                "opcao": opcao.textoOpcao,
+                "votos": qtd
+            })
+
+        retorno.append({
+            "titulo": votacao.titulo,
+            "resultado": resultado,
+            "total_votos": total
+        })
+
+    return retorno
 
 @app.post("/api/admin/login")
 async def api_admin_login(senha: str = Form(...)):
@@ -100,21 +180,26 @@ async def api_admin_login(senha: str = Form(...)):
         status_code=401,
         detail="Senha incorreta. Acesso negado."
     )
+from typing import List
 
 @app.post("/api/votacoes/criar")
 async def api_criar_votacao(
     titulo: str = Form(...),
     descricao: str = Form(""),
-    prazo_final: str = Form(...), # Esperando formato YYYY-MM-DDTHH:MM
+    prazo_final: str = Form(...),
+    opcoes: List[str] = Form(...),
     db: Session = Depends(get_db)
 ):
-    """Aciona a classe Operacoes para salvar no banco."""
+
     operacoes = Operacoes(db)
-    
+
     try:
         prazo_convertido = datetime.fromisoformat(prazo_final)
     except ValueError:
-        raise HTTPException(status_code=400, detail="Formato de data inválido.")
+        raise HTTPException(
+            status_code=400,
+            detail="Formato de data inválido."
+        )
 
     nova_votacao = Votacao(
         titulo=titulo,
@@ -123,19 +208,187 @@ async def api_criar_votacao(
         prazo_final=prazo_convertido,
         status="ATIVA"
     )
-    
-    # Obs: A lógica de receber múltiplas opções do HTML (dinamicamente) exige
-    # processar uma lista de campos no frontend e enviar para cá.
-    operacoes.criarVotacao(nova_votacao)
-    
-    return {"mensagem": "Votação criada com sucesso!"}
 
-@app.get("/api/votacoes/{id_votacao}/consenso")
-async def api_ver_consenso(id_votacao: int, db: Session = Depends(get_db)):
-    """Aciona o LogicaMotor (Pandas) e retorna os resultados para o painel[cite: 32]."""
-    motor = LogicaMotor(db)
+    # Adiciona as opções à votação
+    for texto in opcoes:
+
+        if texto.strip():
+
+            nova_opcao = Opcao(
+                textoOpcao=texto
+            )
+
+            nova_votacao.opcoes.append(
+                nova_opcao
+            )
+
+    # Salva votação + opções
+    operacoes.criarVotacao(nova_votacao)
+
+    return {
+        "mensagem": "Votação criada com sucesso!"
+    }
+
+@app.get("/api/votacoes")
+async def listar_votacoes(
+    db: Session = Depends(get_db)
+):
+    votacoes = db.query(Votacao).all()
+
+    return [
+        {
+            "id": v.idVotacoes,
+            "titulo": v.titulo,
+            "descricao": v.descricao,
+            "status": v.status
+        }
+        for v in votacoes
+    ]
     
-    # Chama o método que analisa os dados via DataFrame Pandas
-    resultado = motor.analisarConsenso(id_votacao)
-    return {"consenso": resultado}
+
+@app.get("/api/votacoes/{id}")
+async def obter_votacao(
+    id: int,
+    db: Session = Depends(get_db)
+):
+    votacao = db.query(Votacao).filter(
+        Votacao.idVotacoes == id
+    ).first()
+
+    if not votacao:
+        raise HTTPException(
+            status_code=404,
+            detail="Votação não encontrada"
+        )
+
+    return {
+        "id": votacao.idVotacoes,
+        "titulo": votacao.titulo,
+        "descricao": votacao.descricao,
+        "dataCriacao": str(votacao.dataCriacao),
+        "prazo_final": str(votacao.prazo_final),
+        "status": votacao.status
+    }
+
+@app.get("/api/votacoes/{id}/opcoes")
+async def listar_opcoes(
+    id: int,
+    db: Session = Depends(get_db)
+):
+
+    opcoes = db.query(Opcao).filter(
+        Opcao.votacoes_idVotacoes == id
+    ).all()
+
+    return [
+        {
+            "id": o.idOpcoes,
+            "texto": o.textoOpcao
+        }
+        for o in opcoes
+    ]
+
+@app.get("/api/votacoes/{id}/resultado")
+async def resultado(
+    id: int,
+    db: Session = Depends(get_db)
+):
+
+    opcoes = db.query(Opcao).filter(
+        Opcao.votacoes_idVotacoes == id
+    ).all()
+
+    retorno = []
+
+    total = 0
+
+    for opcao in opcoes:
+
+        qtd = db.query(Voto).filter(
+            Voto.opcoes_idOpcoes == opcao.idOpcoes
+        ).count()
+
+        total += qtd
+
+        retorno.append({
+            "texto": opcao.textoOpcao,
+            "votos": qtd
+        })
+
+    for item in retorno:
+
+        item["percentual"] = (
+            item["votos"] * 100 / total
+        ) if total > 0 else 0
+
+    return retorno
+
+@app.post("/api/votar")
+async def votar(
+    id_opcao: int,
+    db: Session = Depends(get_db)
+):
+
+    opcao = db.query(Opcao).filter(
+        Opcao.idOpcoes == id_opcao
+    ).first()
+
+    if not opcao:
+        raise HTTPException(
+            status_code=404,
+            detail="Opção não encontrada"
+        )
+
+    voto = Voto(
+        matriculaUsuario="DEMO",
+        votacoes_idVotacoes=opcao.votacoes_idVotacoes,
+        opcoes_idOpcoes=id_opcao
+    )
+
+    db.add(voto)
+    db.commit()
+
+    return {"ok": True}
+
+
+@app.post("/api/votacoes/{id}/encerrar")
+async def encerrar_votacao(
+    id: int,
+    db: Session = Depends(get_db)
+):
+
+    votacao = db.query(Votacao).filter(
+        Votacao.idVotacoes == id
+    ).first()
+
+    if not votacao:
+        raise HTTPException(404)
+
+    votacao.status = "ENCERRADA"
+
+    db.commit()
+
+    return {
+        "mensagem": "Votação encerrada com sucesso"
+    }    
+
+@app.get("/api/dashboard")
+async def dashboard(
+    db: Session = Depends(get_db)
+):
+
+    return {
+        "ativas":
+            db.query(Votacao)
+            .filter(Votacao.status=="ATIVA")
+            .count(),
+
+        "encerradas":
+            db.query(Votacao)
+            .filter(Votacao.status=="ENCERRADA")
+            .count(),
+
+        "votos":
+            db.query(Voto).count()
+    }
 
