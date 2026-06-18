@@ -99,8 +99,8 @@
       <header class="header">
 
         <div class="user-box">
-          <div class="avatar">U</div>
-          <span>Usuário</span>
+          <div class="avatar">S</div>
+          <span>Superusuário</span>
         </div>
 
       </header>
@@ -125,6 +125,8 @@
           </p>
 
         </div>
+
+<div id="mensagem-sucesso"></div>
 
         <form method="POST" action="/api/votacoes/criar">
         <!-- GRID -->
@@ -235,7 +237,7 @@
 
               </div>
 
-              <button type="button" id="btnAddOption" class="btn-outline add-option">
+              <button type="button" id="btnAddOption" class="btn-outline add-option ">
   ＋ Adicionar opção
 </button>
 
@@ -339,7 +341,7 @@ btnAddOption.addEventListener("click", () => {
 
         <input
             type="text"
-            name="opcoes[]"
+            name="opcoes"
             placeholder="Digite uma opção..."
         >
 
@@ -364,24 +366,24 @@ document.addEventListener("click", function(event){
 
 });
 
-const tipo = document.getElementById("tipoIdentificacao");
-const campo = document.getElementById("identificacao");
+const params = new URLSearchParams(window.location.search);
 
-tipo.addEventListener("change", function(){
+if(params.get("sucesso")){
 
-    if(this.value === "matricula"){
-        campo.placeholder = "Digite a matrícula";
-    }
+    document.getElementById("mensagem-sucesso").innerHTML = `
+        <div style="
+            background:#dcfce7;
+            color:#166534;
+            padding:15px;
+            border-radius:8px;
+            margin-bottom:20px;
+            border:1px solid #86efac;
+        ">
+            ✅ Votação criada com sucesso!
+        </div>
+    `;
+}
 
-    if(this.value === "email"){
-        campo.placeholder = "Digite o e-mail";
-    }
-
-    if(this.value === "cpf"){
-        campo.placeholder = "Digite o CPF";
-    }
-
-});
 
 </script>
 </body>

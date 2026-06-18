@@ -12,6 +12,7 @@ from models import Votacao, Opcao, Voto
 from Operacoes import Operacoes
 from OperacoesAdmin import OperacoesAdmin
 from LogicaMotor import LogicaMotor
+from fastapi.responses import RedirectResponse
 
 # 1. Configuração do Banco de Dados
 DATABASE_URL = "mysql+mysqlconnector://root:123456@localhost:3306/sistema_decisoes"
@@ -224,10 +225,12 @@ async def api_criar_votacao(
 
     # Salva votação + opções
     operacoes.criarVotacao(nova_votacao)
+    
+    return RedirectResponse(
+    url="/superusuario/criar-votacao?sucesso=1",
+    status_code=303
+)
 
-    return {
-        "mensagem": "Votação criada com sucesso!"
-    }
 
 @app.get("/api/votacoes")
 async def listar_votacoes(
@@ -340,7 +343,7 @@ async def votar(
         )
 
     voto = Voto(
-        matriculaUsuario="DEMO",
+       matriculaUsuario=f"TESTE_{datetime.now().timestamp()}",
         votacoes_idVotacoes=opcao.votacoes_idVotacoes,
         opcoes_idOpcoes=id_opcao
     )
