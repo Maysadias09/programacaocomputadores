@@ -19,6 +19,7 @@ O sistema possui dois perfis de acesso:
 * FastAPI
 * SQLAlchemy
 * MySQL
+* Pandas
 
 ### Frontend
 
